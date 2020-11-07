@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thinh.acazia.test.model.Category;
 import thinh.acazia.test.service.CategoryService;
-import thinh.acazia.test.service.ProductService;
 
 import java.util.Optional;
 
@@ -17,10 +16,6 @@ import java.util.Optional;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private ProductService productService;
-
 
     @GetMapping("/list")
     public ResponseEntity<Page<Category>> showList(Pageable pageable) {
@@ -47,13 +42,18 @@ public class CategoryController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Category> updateById(@PathVariable Long id) {
+    public ResponseEntity<Category> updateById(@PathVariable Long id, @RequestBody Category category) {
         Optional<Category> currentCategory = categoryService.findById(id);
         if (!currentCategory.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        categoryService.update()
+        currentCategory.get().setName(category.getName());
+        currentCategory.get().setTag(category.getTag());
+        currentCategory.get().setId(category.getId());
 
+        Category updatedCategory = currentCategory.get();
+        categoryService.save(updatedCategory);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

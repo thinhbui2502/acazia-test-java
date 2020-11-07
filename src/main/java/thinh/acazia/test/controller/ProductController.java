@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import thinh.acazia.test.model.Category;
 import thinh.acazia.test.model.Product;
 import thinh.acazia.test.service.ProductService;
 
@@ -39,6 +40,22 @@ public class ProductController {
     public ResponseEntity<Product> create(@RequestBody Product product) {
         productService.save(product);
         return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Product> updateById(@PathVariable Long id, @RequestBody Product product) {
+        Optional<Product> currentProduct = productService.findById(id);
+        if (!currentProduct.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        currentProduct.get().setName(product.getName());
+        currentProduct.get().setCategory(product.getCategory());
+        currentProduct.get().setPrice(product.getPrice());
+        currentProduct.get().setId(product.getId());
+
+        Product updatedProduct = currentProduct.get();
+        productService.save(updatedProduct);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
