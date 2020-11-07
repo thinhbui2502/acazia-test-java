@@ -34,4 +34,9 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
+    @Override
+    public Iterable<Product> findByKey(String key) {
+        return productRepository.searchByCategoryTagAndName(key);
+    }
+
 }

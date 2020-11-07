@@ -58,7 +58,6 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Product> deleteById(@PathVariable Long id) {
         Optional<Product> product = productService.findById(id);
@@ -67,5 +66,18 @@ public class ProductController {
         }
         productService.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{key}")
+    public ResponseEntity<Iterable<Product>> findById(@PathVariable String key) {
+        try {
+            Iterable<Product> products = productService.findByKey(key);
+            if (products.iterator().next() == null) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }

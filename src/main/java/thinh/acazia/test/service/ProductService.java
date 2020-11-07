@@ -13,6 +13,8 @@ public interface ProductService {
 
     void save(Product product);
 
-    void remove(Long  id);
+    void remove(Long id);
+
+    Iterable<Product> findByKey(String key);
 
 }
