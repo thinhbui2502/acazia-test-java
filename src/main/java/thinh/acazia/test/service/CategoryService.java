@@ -9,10 +9,10 @@ import java.util.Optional;
 public interface CategoryService {
     Page<Category> findALL(Pageable pageable);
 
-    Optional<Category> findById(Long id);
+    Optional<Category> findById(String tag);
 
     void save(Category category);
 
-    void remove(Long id);
+    void remove(String tag);
 
 }

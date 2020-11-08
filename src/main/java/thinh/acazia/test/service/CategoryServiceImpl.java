@@ -21,8 +21,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> findById(Long id) {
-        return categoryRepository.findById(id);
+    public Optional<Category> findById(String tag) {
+        return categoryRepository.findById(tag);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void remove(Long id) {
-        categoryRepository.deleteById(id);
+    public void remove(String tag) {
+        categoryRepository.deleteById(tag);
     }
 
 }

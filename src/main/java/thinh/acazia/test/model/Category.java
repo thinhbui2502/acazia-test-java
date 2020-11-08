@@ -1,6 +1,8 @@
 package thinh.acazia.test.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,16 +10,15 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="categories")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull(message = "category's name must be fill")
+    @Column(name = "name")
     private String name;
 
-    @NotNull(message = "tag's name must be fill")
-    @Column(unique = true)
+    @Id
+    @NotNull
+    @Column(name = "tag", length = 64)
     private String tag;
 
 }

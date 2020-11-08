@@ -1,30 +1,33 @@
 package thinh.acazia.test.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Entity
 @Data
 @Table(name = "products")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @NotNull(message = "product's name must be fill")
+    @Column(name = "name")
     private String name;
 
-//    private String categoryTag;
 
-    @NotNull(message = "price must be fill")
+    @Column(name = "price")
     @Positive
-    private double price;
+    private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "categoryTag")
+    private Category categoryTag;
 
 }

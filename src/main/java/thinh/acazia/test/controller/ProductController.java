@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import thinh.acazia.test.model.Category;
 import thinh.acazia.test.model.Product;
 import thinh.acazia.test.service.ProductService;
 
@@ -49,7 +48,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         currentProduct.get().setName(product.getName());
-        currentProduct.get().setCategory(product.getCategory());
+        currentProduct.get().setCategoryTag(product.getCategoryTag());
         currentProduct.get().setPrice(product.getPrice());
         currentProduct.get().setId(product.getId());
 
